@@ -13,6 +13,9 @@ int print_char(va_list args)
 	int chars_printed = 0;
 	int c = va_arg(args, int);
 
+	if (!c)
+		return (-1);
+
 	_putchar(c);
 	chars_printed++;
 	return (chars_printed);
@@ -52,6 +55,9 @@ int print_int(va_list args)
 	int chars_printed = 0;
 	int n = va_arg(args, int);
 	int i = 1, len = 0;
+
+	if (!n)
+		return (-1);
 
 	if (n < 0)
 	{
