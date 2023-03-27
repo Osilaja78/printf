@@ -56,9 +56,6 @@ int print_int(va_list args)
 	int n = va_arg(args, int);
 	int i = 1, len = 0;
 
-	if (!n)
-		return (-1);
-
 	if (n < 0)
 	{
 		_putchar('-');
