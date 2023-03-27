@@ -2,6 +2,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+int (*get_specifier_func(char spec))(va_list);
+
 int print_num(int num);
 /**
  * _printf - Custom printf function.
@@ -11,8 +13,8 @@ int print_num(int num);
  */
 int _printf(const char *format, ...)
 {
-	int d, i, len = 0;
-	char c, *s;
+	int printed_chars = 0;
+	int (*converter_func)(va_list);
 	va_list args;
 
 	if (format == NULL)
@@ -20,87 +22,58 @@ int _printf(const char *format, ...)
 
 	va_start(args, format);
 
-	while (*format != '\0')
+	while (*format)
 	{
 		if (*format != '%')
 		{
 			_putchar(*format);
-			format++;
-			len++;
+			printed_chars++;
 		}
 
 		if (*format == '%')
 		{
-			format++;
+			/* get the function pointer for the conversion specifier */
+			converter_func = get_specifier_func(*(++format));
 
-			switch (*format)
+			/* call the converter function with the current argument */
+			if (converter_func == NULL)
 			{
-				case 'c':
-					c = (char) va_arg(args, int);
-					_putchar(c);
-					len++;
-					break;
-				case 's':
-					s = va_arg(args, char *);
-
-					if (s == NULL)
-						s = "(null)";
-
-					while (*s != '\0')
-					{
-						_putchar(*s);
-						len++;
-						s++;
-					}
-					break;
-				case '%':
-					_putchar('%');
-					len++;
-					break;
-				case 'd':
-					d = va_arg(args, int);
-					len += print_num(d);
-					break;
-				case 'i':
-					i = va_arg(args, int);
-					len += print_num(i);
-					break;
-				default:
-					_putchar('%');
-					_putchar(*format);
-					len += 2;
-					break;
+				_putchar('%');
+				_putchar(*format);
+				printed_chars += 2;
 			}
-			format++;
+			else
+				printed_chars += converter_func(args);
 		}
+		format++;
 	}
 	va_end(args);
-	return (len);
+	return (printed_chars);
 }
 
 /**
- * print_num - for format specifiers %d and %i.
- * @num: number to print
+ * get_specifier_func - gets the function associated with a given specifier
+ * @spec: the conversion specifier
  *
- * Return: length of printed number.
+ * Return: the function pointer associated with the specifier,
+ * or NULL if not found
  */
-int print_num(int num)
+int (*get_specifier_func(char spec))(va_list)
 {
-	int len = 0;
+	int i;
+	fm_t converters[] = {
+		{'c', print_char},
+		{'s', print_string},
+		{'d', print_int},
+		{'i', print_int},
+		{'%', print_char},
+		{'\0', NULL}
+	};
 
-	if (num < 0)
+	for (i = 0; converters[i].fn; i++)
 	{
-		_putchar('-');
-		num = -num;
-		len++;
+		if (converters[i].fmt == spec)
+			return (converters[i].fn);
 	}
-
-	if (num > 9)
-	{
-		print_num(num / 10);
-		len++;
-	}
-	_putchar(num % 10 + '0');
-	len++;
-	return (len);
+	return (NULL);
 }
