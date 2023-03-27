@@ -11,9 +11,8 @@ int print_num(int num);
  */
 int _printf(const char *format, ...)
 {
-	int len = 0;
+	int d, i, len = 0;
 	char c, *s;
-	int d, i;
 	va_list args;
 
 	va_start(args, format);
@@ -41,6 +40,9 @@ int _printf(const char *format, ...)
 				case 's':
 					s = va_arg(args, char *);
 
+					if (s == NULL)
+						s = "(null)";
+
 					while (*s != '\0')
 					{
 						_putchar(*s);
@@ -54,12 +56,10 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 					d = va_arg(args, int);
-
 					len += print_num(d);
 					break;
 				case 'i':
 					i = va_arg(args, int);
-
 					len += print_num(i);
 					break;
 			}
