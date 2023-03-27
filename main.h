@@ -5,6 +5,13 @@
 
 #include <stdarg.h>
 
+/**
+ * struct fmt -  format construct.
+ * @fmt: format
+ * @fn: function
+ *
+ * Description: holds struct for functions
+ */
 typedef struct fmt
 {
 	char fmt;
