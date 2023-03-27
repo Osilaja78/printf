@@ -66,7 +66,7 @@ int (*get_specifier_func(char spec))(va_list)
 		{'s', print_string},
 		{'d', print_int},
 		{'i', print_int},
-		{'%', print_char},
+		{'%', print_percent},
 		{'\0', NULL}
 	};
 
