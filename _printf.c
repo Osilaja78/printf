@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+int (*get_specifier_func(char spec))(va_list);
 int print_num(int num);
 /**
  * _printf - Custom printf function.
