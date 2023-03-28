@@ -61,12 +61,11 @@ int (*get_specifier_func(char spec))(va_list)
 {
 	int i;
 	fm_t converters[] = {
-		{'c', print_char},
-		{'s', print_string},
-		{'d', print_int},
-		{'i', print_int},
-		{'%', print_percent},
-		{'b', print_binary},
+		{'c', print_char},{'s', print_string},
+		{'d', print_int},{'i', print_int},
+		{'%', print_percent},{'b', print_binary},
+		{'u', print_unsigned},{'o', print_octal},
+		{'x', print_hexadecimal},{'X', print_hexadecimal_u},
 		{'\0', NULL}
 	};
 
