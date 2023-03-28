@@ -12,7 +12,7 @@
  *
  * Description: holds struct for functions
  */
-typedef struct fmt
+typedef struct frmt
 {
 	char fmt;
 	int (*fn)(va_list args);
