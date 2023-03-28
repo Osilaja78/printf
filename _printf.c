@@ -2,8 +2,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int (*get_specifier_func(char spec))(va_list);
-
 int print_num(int num);
 /**
  * _printf - Custom printf function.
@@ -67,6 +65,7 @@ int (*get_specifier_func(char spec))(va_list)
 		{'d', print_int},
 		{'i', print_int},
 		{'%', print_percent},
+		{'b', print_binary},
 		{'\0', NULL}
 	};
 

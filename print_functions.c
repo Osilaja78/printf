@@ -14,7 +14,9 @@ int print_char(va_list args)
 	int c = va_arg(args, int);
 
 	if (c == '\0')
-		c = '\0';
+	{
+		return (chars_printed);
+	}
 
 	_putchar(c);
 	chars_printed++;
@@ -54,7 +56,7 @@ int print_int(va_list args)
 {
 	int chars_printed = 0;
 	int n = va_arg(args, int);
-	int i = 1, len = 0;
+	int i = 1;
 
 	if (n < 0)
 	{
@@ -70,7 +72,6 @@ int print_int(va_list args)
 	{
 		_putchar((n / i) % 10 + '0');
 		chars_printed++;
-		len++;
 		i /= 10;
 	}
 	return (chars_printed);
@@ -89,4 +90,44 @@ int print_percent(va_list args)
 	UNUSED(args);
 	_putchar('%');
 	return (chars_printed + 1);
+}
+
+/**
+ * print_binary - prints an int in binary.
+ * @args: the argument list
+ *
+ * Return: number of characters printed
+ */
+int print_binary(va_list args)
+{
+	unsigned int n = va_arg(args, unsigned int);
+	int chars_printed = 0;
+	int binary[32];
+	int i, j;
+
+	if (n == 0)
+	{
+		_putchar('0');
+		chars_printed++;
+		return (chars_printed);
+	}
+	if (n == 1)
+	{
+		_putchar('1');
+		chars_printed++;
+		return (chars_printed);
+	}
+
+	for (i = 0; n > 0; i++)
+	{
+		binary[i] = n % 2;
+		n /= 2;
+	}
+
+	for (j = i - 1; j >= 0; j--)
+	{
+		_putchar(binary[j] + '0');
+		chars_printed++;
+	}
+	return (chars_printed);
 }
