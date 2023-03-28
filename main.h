@@ -20,7 +20,7 @@ typedef struct fmt
 
 int _putchar(char c);
 int _printf(const char *format, ...);
-int (*get_specifier_func(char spec))(va_list)
+int (*get_specifier_func(char spec))(va_list);
 int print_char(va_list args);
 int print_string(va_list args);
 int print_int(va_list args);
