@@ -6,7 +6,7 @@
 #include <stdarg.h>
 
 /**
- * struct fmt -  format construct.
+ * struct frmt -  format construct.
  * @fmt: format
  * @fn: function
  *
