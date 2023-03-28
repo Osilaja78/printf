@@ -14,9 +14,7 @@ int print_char(va_list args)
 	int c = va_arg(args, int);
 
 	if (c == '\0')
-	{
-		return (chars_printed);
-	}
+		c = '\0';
 
 	_putchar(c);
 	chars_printed++;
