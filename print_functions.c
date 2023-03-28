@@ -13,11 +13,8 @@ int print_char(va_list args)
 	int chars_printed = 0;
 	int c = va_arg(args, int);
 
-	if (c >= 32 && c < 127)
-	{
-		_putchar(c);
-		chars_printed++;
-	}
+	_putchar(c);
+	chars_printed++;
 	return (chars_printed);
 }
 
